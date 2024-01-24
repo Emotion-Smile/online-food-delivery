@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Restaurant;
+namespace App\Models\Delivery;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
