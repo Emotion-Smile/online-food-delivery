@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('restaurant_ratings', function (Blueprint $table) {
             $table->id('rating_id');
-            $table->foreignId('restaurant_id');
-            $table->foreignId('user_id');
+            $table->foreignId('restaurant_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->integer('rating_score');
             $table->dateTime('rating_date');
             $table->timestamps();

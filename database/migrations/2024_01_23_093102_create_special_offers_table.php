@@ -14,14 +14,14 @@ return new class extends Migration
         Schema::create('special_offers', function (Blueprint $table) {
             $table->id('offer_id');
             $table->string('title');
-            $table->string('description');
+            $table->text('description')->nullable();
             $table->string('discount_type');
             $table->float('discount_value');
-            $table->string('valid_from');
-            $table->string('valid_to');
+            $table->date('valid_from');
+            $table->date('valid_to');
             $table->integer('minimum_order_value');
             $table->text('applicable_menu_items');
-            $table->foreignId('restaurant_id');
+            $table->foreignId('restaurant_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
