@@ -62,14 +62,22 @@ Route::prefix('user')->group(function () {
     });
 });
 
+//Route::prefix('orders')->group(function () {
+//    Route::middleware('auth:api')->group(function () {
+//        Route::post('/', PlaceOrderController::class);
+//        Route::get('/', GetAllOrdersController::class);
+//        Route::get('/{id}', GetOrderDetailsController::class);
+//        Route::put('/{id}', UpdateOrderController::class);
+//        Route::patch('/{id}/cancel', CancelOrderController::class);
+//    });
+//});
+
 Route::prefix('orders')->group(function () {
-    Route::middleware('auth:api')->group(function () {
-        Route::post('/', PlaceOrderController::class);
-        Route::get('/', GetAllOrdersController::class);
-        Route::get('/{id}', GetOrderDetailsController::class);
-        Route::put('/{id}', UpdateOrderController::class);
-        Route::patch('/{id}/cancel', CancelOrderController::class);
-    });
+    Route::post('/', PlaceOrderController::class);
+    Route::get('/', GetAllOrdersController::class);
+    Route::get('/{id}', GetOrderDetailsController::class);
+    Route::put('/{id}', UpdateOrderController::class);
+    Route::patch('/{id}/cancel', CancelOrderController::class);
 });
 
 Route::prefix('restaurants')->group(function () {
