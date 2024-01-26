@@ -15,10 +15,15 @@ use Laravel\Sanctum\HasApiTokens;
 class UserModel extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+
+    protected $table = "users";
     protected $fillable = [
-        'name',
+        'username',
         'email',
         'password',
+        'phone_number',
+        'user_type',
+        'address',
     ];
     protected $hidden = [
         'password',
