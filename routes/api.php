@@ -25,6 +25,7 @@ use App\Http\Controllers\Api\SpecialOffer\DeleteOfferController;
 use App\Http\Controllers\Api\SpecialOffer\GetAllOffersController;
 use App\Http\Controllers\Api\SpecialOffer\GetOfferDetailsController;
 use App\Http\Controllers\Api\SpecialOffer\UpdateOfferController;
+use App\Http\Controllers\Api\User\ChangePasswordController;
 use App\Http\Controllers\Api\User\DeleteUserController;
 use App\Http\Controllers\Api\User\ForgetPasswordController;
 use App\Http\Controllers\Api\User\GetUserDetailController;
@@ -65,6 +66,7 @@ Route::prefix('v1')->group(function () {
             Route::get('/info', GetUserDetailController::class);
             Route::post('/logout', UserLogoutController::class);
             Route::delete('/{id}', DeleteUserController::class);
+            Route::post('/change-password', ChangePasswordController::class);
         });
 
         Route::prefix('orders')->group(function () {
