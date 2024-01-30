@@ -7,6 +7,7 @@ use App\Models\User\UserModel;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 
 class ForgetPasswordController extends Controller
@@ -17,12 +18,12 @@ class ForgetPasswordController extends Controller
 
         $user = UserModel::query()->where('email', $request->email)->first();
 
-        if(!$user) {
-            return response()->json(['message' => 'Your email is not found.'], 400);
+        if($user) {
+            $token = Hash::make($request->email);
+            return response()->json(['message' => 'success .', 'token' => $token], 200);
         }
 
-        return response()->json(['message' => 'success .'], 200);
-
+        return response()->json(['message' => 'Your email is not found.'], 400);
 
 //        $request->validate(['email' => 'required|email']);
 //
