@@ -26,6 +26,7 @@ use App\Http\Controllers\Api\SpecialOffer\GetAllOffersController;
 use App\Http\Controllers\Api\SpecialOffer\GetOfferDetailsController;
 use App\Http\Controllers\Api\SpecialOffer\UpdateOfferController;
 use App\Http\Controllers\Api\User\DeleteUserController;
+use App\Http\Controllers\Api\User\ForgetPasswordController;
 use App\Http\Controllers\Api\User\GetUserDetailController;
 use App\Http\Controllers\Api\User\UpdateUserDetailController;
 use App\Http\Controllers\Api\User\UserLoginController;
@@ -54,6 +55,7 @@ Route::prefix('v1')->group(function () {
     Route::prefix('user')->group(function () {
         Route::post('/register', UserRegisterController::class);
         Route::post('/login', UserLoginController::class);
+        Route::post('/forgot-password', ForgetPasswordController::class);
     });
 
     Route::middleware('auth:sanctum')->group(function () {
