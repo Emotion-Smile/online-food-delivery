@@ -13,14 +13,20 @@ class UploadProfileController extends Controller
     public function __invoke(Request $request): JsonResponse
     {
         $image = $request->input('image');
+        $userImage = ProfileModel::where('user_id', Auth::user()->id)->first();
         if($image) {
-            $profile = ProfileModel::create([
-                'user_id' => Auth::user()->id,
+            if(!$userImage) {
+                $profile = ProfileModel::create([
+                    'user_id' => Auth::user()->id,
+                    'url' => $image,
+                ]);
+                return response()->json($profile);
+            }
+            $userImage->update([
                 'url' => $image,
             ]);
-            return response()->json($profile);
+            return response()->json($userImage);
         }
-
-        return response()->json(Auth::user());
+        return response()->json(['message' => 'Upload Profile Error']);
     }
 }
