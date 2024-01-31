@@ -30,6 +30,7 @@ use App\Http\Controllers\Api\User\DeleteUserController;
 use App\Http\Controllers\Api\User\ForgetPasswordController;
 use App\Http\Controllers\Api\User\GetUserDetailController;
 use App\Http\Controllers\Api\User\UpdateUserDetailController;
+use App\Http\Controllers\Api\User\UploadProfileController;
 use App\Http\Controllers\Api\User\UserLoginController;
 use App\Http\Controllers\Api\User\UserLogoutController;
 use App\Http\Controllers\Api\User\UserProfileController;
@@ -62,6 +63,7 @@ Route::prefix('v1')->group(function () {
     Route::middleware('auth:sanctum')->group(function () {
         Route::prefix('user')->group(function () {
             Route::get('/profile', UserProfileController::class);
+            Route::post('/profile', UploadProfileController::class);
             Route::put('/update', UpdateUserDetailController::class);
             Route::get('/info', GetUserDetailController::class);
             Route::post('/logout', UserLogoutController::class);
