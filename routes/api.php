@@ -64,7 +64,8 @@ Route::prefix('v1')->group(function () {
         Route::prefix('user')->group(function () {
             Route::get('/profile', UserProfileController::class);
             Route::post('/profile', UploadProfileController::class);
-            Route::put('/update', UpdateUserDetailController::class);
+//            Route::put('/update', UpdateUserDetailController::class);
+            Route::post('/info', UpdateUserDetailController::class);
             Route::get('/info', GetUserDetailController::class);
             Route::post('/logout', UserLogoutController::class);
             Route::delete('/{id}', DeleteUserController::class);
