@@ -1,8 +1,15 @@
 <?php
 
-use App\Http\Controllers\Api\Delivery\AssignDeliveryController;
-use App\Http\Controllers\Api\Delivery\TrackDeliveryController;
-use App\Http\Controllers\Api\Delivery\UpdateStatusDeliveryController;
+use App\Http\Controllers\Api\CustomerApp\Customer\CustomerChangePasswordController;
+use App\Http\Controllers\Api\CustomerApp\Customer\CustomerForgetPasswordController;
+use App\Http\Controllers\Api\CustomerApp\Customer\CustomerLoginController;
+use App\Http\Controllers\Api\CustomerApp\Customer\CustomerLogoutController;
+use App\Http\Controllers\Api\CustomerApp\Customer\CustomerProfileController;
+use App\Http\Controllers\Api\CustomerApp\Customer\CustomerRegisterController;
+use App\Http\Controllers\Api\CustomerApp\Customer\DeleteCustomerController;
+use App\Http\Controllers\Api\CustomerApp\Customer\GetCustomerDetailController;
+use App\Http\Controllers\Api\CustomerApp\Customer\UpdateCustomerDetailController;
+use App\Http\Controllers\Api\CustomerApp\Customer\UploadCustomerProfileController;
 use App\Http\Controllers\Api\Menu\AddMenuItemController;
 use App\Http\Controllers\Api\Menu\DeleteMenuItemController;
 use App\Http\Controllers\Api\Menu\GetMenuItemController;
@@ -13,29 +20,16 @@ use App\Http\Controllers\Api\Order\GetAllOrdersController;
 use App\Http\Controllers\Api\Order\GetOrderDetailsController;
 use App\Http\Controllers\Api\Order\PlaceOrderController;
 use App\Http\Controllers\Api\Order\UpdateOrderController;
-use App\Http\Controllers\Api\Restaurant\AddRestaurantController;
-use App\Http\Controllers\Api\Restaurant\DeleteRestaurantController;
-use App\Http\Controllers\Api\Restaurant\GetAllRestaurantsController;
-use App\Http\Controllers\Api\Restaurant\GetRestaurantDetailController;
-use App\Http\Controllers\Api\Restaurant\UpdateRestaurantController;
 use App\Http\Controllers\Api\Review\GetReviewsController;
 use App\Http\Controllers\Api\Review\PostReviewController;
+use App\Http\Controllers\Api\RiderApp\Rider\RiderForgetPasswordController;
+use App\Http\Controllers\Api\RiderApp\Rider\RiderLoginController;
+use App\Http\Controllers\Api\RiderApp\Rider\RiderRegisterController;
 use App\Http\Controllers\Api\SpecialOffer\CreateOfferController;
 use App\Http\Controllers\Api\SpecialOffer\DeleteOfferController;
 use App\Http\Controllers\Api\SpecialOffer\GetAllOffersController;
 use App\Http\Controllers\Api\SpecialOffer\GetOfferDetailsController;
 use App\Http\Controllers\Api\SpecialOffer\UpdateOfferController;
-use App\Http\Controllers\Api\User\ChangePasswordController;
-use App\Http\Controllers\Api\User\DeleteUserController;
-use App\Http\Controllers\Api\User\ForgetPasswordController;
-use App\Http\Controllers\Api\User\GetUserDetailController;
-use App\Http\Controllers\Api\User\UpdateUserDetailController;
-use App\Http\Controllers\Api\User\UploadProfileController;
-use App\Http\Controllers\Api\User\UserLoginController;
-use App\Http\Controllers\Api\User\UserLogoutController;
-use App\Http\Controllers\Api\User\UserProfileController;
-use App\Http\Controllers\Api\User\UserRegisterController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -54,22 +48,44 @@ use Illuminate\Support\Facades\Route;
 //});
 
 Route::prefix('v1')->group(function () {
-    Route::prefix('user')->group(function () {
-        Route::post('/register', UserRegisterController::class);
-        Route::post('/login', UserLoginController::class);
-        Route::post('/forgot-password', ForgetPasswordController::class);
+//    Route::prefix('user')->group(function () {
+//        Route::post('/register', UserRegisterController::class);
+//        Route::post('/login', UserLoginController::class);
+//        Route::post('/forgot-password', ForgetPasswordController::class);
+//    });
+
+    Route::prefix('customer')->group(function () {
+        Route::post('/register', CustomerRegisterController::class);
+        Route::post('/login', CustomerLoginController::class);
+        Route::post('/forgot-password', CustomerForgetPasswordController::class);
+    });
+
+    Route::prefix('rider')->group(function () {
+        Route::post('/register', RiderRegisterController::class);
+        Route::post('/login', RiderLoginController::class);
+        Route::post('/forgot-password', RiderForgetPasswordController::class);
     });
 
     Route::middleware('auth:sanctum')->group(function () {
-        Route::prefix('user')->group(function () {
-            Route::get('/profile', UserProfileController::class);
-            Route::post('/profile', UploadProfileController::class);
-//            Route::put('/update', UpdateUserDetailController::class);
-            Route::post('/info', UpdateUserDetailController::class);
-            Route::get('/info', GetUserDetailController::class);
-            Route::post('/logout', UserLogoutController::class);
-            Route::delete('/{id}', DeleteUserController::class);
-            Route::post('/change-password', ChangePasswordController::class);
+//        Route::prefix('user')->group(function () {
+//            Route::get('/profile', UserProfileController::class);
+//            Route::post('/profile', UploadProfileController::class);
+////            Route::put('/update', UpdateUserDetailController::class);
+//            Route::post('/info', UpdateUserDetailController::class);
+//            Route::get('/info', GetUserDetailController::class);
+//            Route::post('/logout', UserLogoutController::class);
+//            Route::delete('/{id}', DeleteCustomerController::class);
+//            Route::post('/change-password', CustomerChangePasswordController::class);
+//        });
+
+        Route::prefix('customer')->group(function () {
+            Route::get('/profile', CustomerProfileController::class);
+            Route::post('/profile', UploadCustomerProfileController::class);
+            Route::post('/info', UpdateCustomerDetailController::class);
+            Route::get('/info', GetCustomerDetailController::class);
+            Route::post('/logout', CustomerLogoutController::class);
+            Route::delete('/{id}', DeleteCustomerController::class);
+            Route::post('/change-password', CustomerChangePasswordController::class);
         });
 
         Route::prefix('orders')->group(function () {
@@ -80,13 +96,13 @@ Route::prefix('v1')->group(function () {
             Route::patch('/{id}/cancel', CancelOrderController::class);
         });
 
-        Route::prefix('restaurants')->group(function () {
-            Route::post('/', AddRestaurantController::class);
-            Route::put('/{id}', UpdateRestaurantController::class);
-            Route::get('/', GetAllRestaurantsController::class);
-            Route::get('/{id}', GetRestaurantDetailController::class);
-            Route::delete('/{id}', DeleteRestaurantController::class);
-        });
+//        Route::prefix('restaurants')->group(function () {
+//            Route::post('/', AddRestaurantController::class);
+//            Route::put('/{id}', UpdateRestaurantController::class);
+//            Route::get('/', GetAllRestaurantsController::class);
+//            Route::get('/{id}', GetRestaurantDetailController::class);
+//            Route::delete('/{id}', DeleteRestaurantController::class);
+//        });
 
         Route::prefix('menu-items')->group(function () {
             Route::post('/', AddMenuItemController::class);
@@ -96,11 +112,11 @@ Route::prefix('v1')->group(function () {
             Route::delete('/{id}', DeleteMenuItemController::class);
         });
 
-        Route::prefix('deliveries')->group(function () {
-            Route::post('/{id}/assign', AssignDeliveryController::class);
-            Route::get('/{id}/track', TrackDeliveryController::class);
-            Route::put('/{id}/status', UpdateStatusDeliveryController::class);
-        });
+//        Route::prefix('deliveries')->group(function () {
+//            Route::post('/{id}/assign', AssignDeliveryController::class);
+//            Route::get('/{id}/track', TrackDeliveryController::class);
+//            Route::put('/{id}/status', UpdateStatusDeliveryController::class);
+//        });
 
         Route::prefix('reviews')->group(function () {
             Route::get('/', GetReviewsController::class);

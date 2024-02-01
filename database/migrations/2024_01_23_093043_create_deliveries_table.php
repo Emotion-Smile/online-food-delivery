@@ -11,18 +11,30 @@ return new class extends Migration
      */
     public function up(): void
     {
+//        Schema::create('deliveries', function (Blueprint $table) {
+//            $table->id();
+//            $table->foreignId('order_id')->constrained()->onDelete('cascade');
+//            $table->string('delivery_status');
+//            $table->string('delivery_address');
+//            $table->unsignedBigInteger('assigned_driver_id')->nullable();
+//            $table->dateTime('estimated_delivery_time');
+//            $table->dateTime('actual_delivery_time')->nullable();
+//            $table->timestamps();
+//
+//            // If you have a drivers table, add a foreign key constraint
+////            $table->foreign('assigned_driver_id')->references('id')->on('drivers')->onDelete('set null');
+//        });
         Schema::create('deliveries', function (Blueprint $table) {
             $table->id();
             $table->foreignId('order_id')->constrained()->onDelete('cascade');
-            $table->string('delivery_status');
+            $table->foreignId('rider_id');
+            $table->enum('status', ['pending', 'on_delivery', 'delivered', 'cancelled']);
+            $table->string('pickup_address');
             $table->string('delivery_address');
-            $table->unsignedBigInteger('assigned_driver_id')->nullable();
-            $table->dateTime('estimated_delivery_time');
-            $table->dateTime('actual_delivery_time')->nullable();
+            $table->dateTime('scheduled_at');
+            $table->dateTime('picked_up_at')->nullable();
+            $table->dateTime('delivered_at')->nullable();
             $table->timestamps();
-
-            // If you have a drivers table, add a foreign key constraint
-//            $table->foreign('assigned_driver_id')->references('id')->on('drivers')->onDelete('set null');
         });
     }
 

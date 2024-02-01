@@ -16,7 +16,9 @@ class AssignDeliveryController extends Controller
             'driver_id' => 'required|exists:users,id', // Assuming drivers are users
         ]);
 
-        $delivery = DeliveryModel::findOrFail($deliveryId);
+//        $delivery = DeliveryModel::findOrFail($deliveryId);
+        $delivery = DeliveryModel::find($deliveryId);
+        dd($delivery);
         $delivery->driver_id = $validated['driver_id'];
         $delivery->status = 'assigned'; // Update status as necessary
         $delivery->save();
